@@ -31,7 +31,7 @@ as role:
 
 ```yaml
 vars:
-  - flipper_zero__…: …
+  - flipper_zero_…: …
 
 roles:
   - role: penguineer.flipper_zero_desktop
@@ -45,7 +45,7 @@ tasks:
     include_role:
       name: penguineer.flipper_zero_desktop
     vars:
-      flipper_zero__…: …
+      flipper_zero_…: …
 ```
 
 
