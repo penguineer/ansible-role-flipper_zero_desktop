@@ -2,7 +2,7 @@ galaxy_info:
   role_name: flipper_zero_debian
   namespace: penguineer
   author: Stefan Haun
-  description: Set up Flipper Zero in a Debian(-based) environment.
+  description: Set up Flipper Zero desktop environment.
 
   license: MIT
 
