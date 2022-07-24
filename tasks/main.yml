@@ -1,0 +1,35 @@
+# Tasks for Flipper Zero
+---
+- name: Make sure udev rules are in place
+  ansible.builtin.copy:
+    src: "files/flipperzero.rules"
+    dest: "/etc/udev/rules.d/{{ flipper_zero_udev_name }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload udev
+
+- name: Download qFlipper
+  ansible.builtin.get_url:
+    url: "{{ flipper_zero_qFlipper_download }}"
+    dest: "{{ flipper_zero_qFlipper_target }}"
+    force: no
+    owner: root
+    group: root
+    mode: "0755"
+    # TODO it would be nice to have a verified hash here
+  register: qFlipper_download
+
+- debug:
+    msg: "{{ qFlipper_download }}"
+
+- name: Set up symlink for qFipper
+  ansible.builtin.file:
+    state: link
+    path: "{{ flipper_zero_qFlipper_symlink }}"
+    src: "{{ qFlipper_download.dest }}"
+    force: yes
+    owner: root
+    group: root
+    mode: "0755"
+  when: qFlipper_download.changed

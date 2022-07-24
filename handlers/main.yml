@@ -1,0 +1,7 @@
+# Handlers for Flipper Zero
+---
+- name: reload udev
+  # reload-rules is not strictly needed, as udev watches its
+  # configuration via inotify, but we keep it just to be safe
+  # in case there are some weird includes
+  shell: udevadm control --reload-rules && udevadm trigger
