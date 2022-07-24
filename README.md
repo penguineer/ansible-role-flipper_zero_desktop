@@ -13,6 +13,7 @@ a Desktop environment.
 Please note that all variables have default values and usually do not need to be changed.
 
 * `flipper_zero_qFlipper_download`: URL to the qFlipper AppImage
+* `flipper_zero_qFlipper_sha256`: SHA256 checksum of the AppImage file
 * `flipper_zero_qFlipper_target`: Path where the AppImage will be stored
 * `flipper_zero_qFlipper_symlink`: Path to a symlink for version-independent access
 * `flipper_zero_udev_name`: How to name the udev rule. (Modify if you want to change the priority.)
