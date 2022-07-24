@@ -20,7 +20,7 @@
     # TODO it would be nice to have a verified hash here
   register: qFlipper_download
 
-- name: Set up symlink for qFipper
+- name: Set up symlink for qFlipper
   ansible.builtin.file:
     state: link
     path: "{{ flipper_zero_qFlipper_symlink }}"
