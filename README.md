@@ -1,9 +1,9 @@
-# Ansible Role: flipper_zero_debian
+# Ansible Role: flipper_zero_desktop
 
-> Set up [Flipper Zero](https://flipperzero.one/) in a Debian(-based) environment.
+> Set up [Flipper Zero](https://flipperzero.one/) desktop environment.
 
-This rule installs the necessary udev rules and downloads qFlipper into a
-Debian-based environment.
+This rule installs the necessary udev rules and downloads qFlipper for
+a Desktop environment.
 
 ## Usage
 
@@ -21,7 +21,7 @@ Please note that all variables have default values and usually do not need to be
 
 Add to your `requirements.yml`:
 ```yml
-- src: penguineer.flipper_zero_debian
+- src: penguineer.flipper_zero_desktop
   version: version-tag
 ```
 
@@ -34,7 +34,7 @@ vars:
   - flipper_zero__…: …
 
 roles:
-  - role: penguineer.flipper_zero_debian
+  - role: penguineer.flipper_zero_desktop
 ```
 
 as task:
@@ -43,7 +43,7 @@ as task:
 tasks:
   - name: Set up Flipper Zero environment
     include_role:
-      name: penguineer.flipper_zero_debian
+      name: penguineer.flipper_zero_desktop
     vars:
       flipper_zero__…: …
 ```
