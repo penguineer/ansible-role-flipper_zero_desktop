@@ -20,9 +20,6 @@
     # TODO it would be nice to have a verified hash here
   register: qFlipper_download
 
-- debug:
-    msg: "{{ qFlipper_download }}"
-
 - name: Set up symlink for qFipper
   ansible.builtin.file:
     state: link
