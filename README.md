@@ -2,8 +2,51 @@
 
 > Set up [Flipper Zero](https://flipperzero.one/) in a Debian(-based) environment.
 
-This rule installs the neccesary udev rules and downloads qFlipper into a
+This rule installs the necessary udev rules and downloads qFlipper into a
 Debian-based environment.
+
+## Usage
+
+
+### Configuration
+
+Please note that all variables have default values and usually do not need to be changed.
+
+* `flipper_zero_qFlipper_download`: URL to the qFlipper AppImage
+* `flipper_zero_qFlipper_target`: Path where the AppImage will be stored
+* `flipper_zero_qFlipper_symlink`: Path to a symlink for version-independent access
+* `flipper_zero_udev_name`: How to name the udev rule. (Modify if you want to change the priority.)
+
+### Requirements
+
+Add to your `requirements.yml`:
+```yml
+- src: penguineer.flipper_zero_debian
+  version: version-tag
+```
+
+### Include
+
+as role:
+
+```yaml
+vars:
+  - flipper_zero__…: …
+
+roles:
+  - role: penguineer.flipper_zero_debian
+```
+
+as task:
+
+```yaml
+tasks:
+  - name: Set up Flipper Zero environment
+    include_role:
+      name: penguineer.flipper_zero_debian
+    vars:
+      flipper_zero__…: …
+```
 
 
 ## Maintainers

@@ -1,0 +1,6 @@
+# Default configuration for Flipper Zero
+---
+flipper_zero_qFlipper_download: "https://update.flipperzero.one/builds/qFlipper/1.1.0/qFlipper-x86_64-1.1.0.AppImage"
+flipper_zero_qFlipper_target: "/usr/local/bin/"
+flipper_zero_qFlipper_symlink: "/usr/local/bin/qFlipper"
+flipper_zero_udev_name: "42-flipperzero.rules"
