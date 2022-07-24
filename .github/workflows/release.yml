@@ -1,0 +1,38 @@
+---
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    name: "Release"
+    runs-on: ubuntu-18.04
+    steps:
+      - name: "Check-out"
+        uses: actions/checkout@v3
+      - name: "Generate release changelog"
+        id: generate-release-changelog
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          onlyLastTag: "true"
+          # set to false if no tags exist (buggy with only one tag)
+
+          stripHeaders: "true"
+          stripGeneratorNotice: "true"
+      - name: Extract the VERSION name
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      - name: "Create GitHub release"
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: "${{ steps.get-version.outputs.VERSION }}"
+          body: "${{ steps.generate-release-changelog.outputs.changelog }}"
+          prerelease: ${{ startsWith(steps.get-version.outputs.VERSION, 'v0.') }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: True
