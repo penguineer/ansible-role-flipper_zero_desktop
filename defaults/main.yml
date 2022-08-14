@@ -1,7 +1,7 @@
 # Default configuration for Flipper Zero
 ---
-flipper_zero_qFlipper_download: "https://update.flipperzero.one/builds/qFlipper/1.1.0/qFlipper-x86_64-1.1.0.AppImage"
-flipper_zero_qFlipper_sha256: "207aa60ae8369b091f43fd2576c75ca365f3f910ec9ce64f92753a048e073142"
+flipper_zero_qFlipper_download: "https://update.flipperzero.one/builds/qFlipper/1.1.2/qFlipper-x86_64-1.1.2.AppImage"
+flipper_zero_qFlipper_sha256: "4702add6921a41f1bc35f89a925c69bbf44b49325a5fcae039edbc9074d09020"
 flipper_zero_qFlipper_target: "/usr/local/bin/"
 flipper_zero_qFlipper_symlink: "/usr/local/bin/qFlipper"
 flipper_zero_udev_name: "42-flipperzero.rules"
