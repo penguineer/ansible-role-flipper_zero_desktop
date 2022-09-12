@@ -1,7 +1,16 @@
 # Default configuration for Flipper Zero
 ---
-flipper_zero_qFlipper_download: "https://update.flipperzero.one/builds/qFlipper/1.1.3/qFlipper-x86_64-1.1.3.AppImage"
-flipper_zero_qFlipper_sha256: "53134ba064d9c99cd2cf2882e9cd13a34be3acfb29a6e03bbacec3ec1a815693"
 flipper_zero_qFlipper_target: "/usr/local/bin/"
 flipper_zero_qFlipper_symlink: "/usr/local/bin/qFlipper"
 flipper_zero_udev_name: "42-flipperzero.rules"
+
+# Options for download of latest release
+flipper_zero_qFlipper_meta_url: "https://update.flipperzero.one/qFlipper/directory.json"
+flipper_zero_qFlipper_release: "release"
+flipper_zero_qFlipper_platform: "linux/amd64"
+
+# Set a direct URL if you want to pin the version
+# flipper_zero_qFlipper_download: "https://update.flipperzero.one/builds/qFlipper/1.1.3/qFlipper-x86_64-1.1.3.AppImage"
+
+# The hash is optional, if not provided, checking will be omitted
+# flipper_zero_qFlipper_sha256: "53134ba064d9c99cd2cf2882e9cd13a34be3acfb29a6e03bbacec3ec1a815693"
