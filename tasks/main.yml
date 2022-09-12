@@ -1,5 +1,50 @@
 # Tasks for Flipper Zero
 ---
+
+- name: Retrieve latest release from web
+  block:
+    - tempfile:
+        state:  file
+        suffix: "qflipper-release"
+      register: temp_release
+      changed_when: false
+
+    - name: Get Release meta-data
+      ansible.builtin.get_url:
+        url: "{{ flipper_zero_qFlipper_meta_url }}"
+        dest: "{{ temp_release.path }}"
+        owner: root
+        group: root
+        mode: '0644'
+      changed_when: false
+
+    - name: Parse Release JSON
+      ansible.builtin.set_fact:
+        qflipper_releases: "{{ lookup('file', temp_release.path) | from_json  }}"
+
+    - ansible.builtin.set_fact:
+        version_query: "channels[?id == '{{ flipper_zero_qFlipper_release }}'].versions[0]"
+
+    - ansible.builtin.set_fact:
+        file_query: "files[?target == '{{ flipper_zero_qFlipper_platform }}']"
+
+    - name: Extract meta-data
+      ansible.builtin.set_fact:
+        qflipper_version: "{{ qflipper_releases | json_query(version_query)  | first }}"
+
+    - name: Get target
+      ansible.builtin.set_fact:
+        qflipper_target: "{{ qflipper_version | json_query(file_query) | first }}"
+
+    - name: Set facts for download
+      ansible.builtin.set_fact:
+        flipper_zero_qFlipper_download: "{{ qflipper_target.url }}"
+        flipper_zero_qFlipper_sha256: "{{ qflipper_target.sha256 }}"
+
+  # Only run block when variables were not defined manually
+  when: flipper_zero_qFlipper_download is not defined
+
+
 - name: Make sure udev rules are in place
   ansible.builtin.copy:
     src: "files/flipperzero.rules"
@@ -9,16 +54,23 @@
     mode: '0644'
   notify: reload udev
 
+
+- name: Prepare checksum if available
+  ansible.builtin.set_fact:
+    sha256: "sha256:{{ flipper_zero_qFlipper_sha256 }}"
+  when: flipper_zero_qFlipper_sha256 is defined
+
 - name: Download qFlipper
   ansible.builtin.get_url:
     url: "{{ flipper_zero_qFlipper_download }}"
     dest: "{{ flipper_zero_qFlipper_target }}"
-    checksum: "sha256:{{ flipper_zero_qFlipper_sha256 }}"
+    checksum: "{{ sha256 | default('') }}"
     force: no
     owner: root
     group: root
     mode: "0755"
   register: qFlipper_download
+
 
 - name: Set up symlink for qFlipper
   ansible.builtin.file:
