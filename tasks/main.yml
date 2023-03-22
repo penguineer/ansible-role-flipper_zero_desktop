@@ -3,24 +3,17 @@
 
 - name: Retrieve latest release from web
   block:
-    - tempfile:
-        state:  file
-        suffix: "qflipper-release"
-      register: temp_release
-      changed_when: false
-
-    - name: Get Release meta-data
-      ansible.builtin.get_url:
+    - name: Download Release meta-data
+      ansible.builtin.uri:
         url: "{{ flipper_zero_qFlipper_meta_url }}"
-        dest: "{{ temp_release.path }}"
-        owner: root
-        group: root
-        mode: '0644'
+        return_content: yes
+      register: qflipper_zero_release_data
       changed_when: false
+      failed_when: qflipper_zero_release_data.status != 200
 
     - name: Parse Release JSON
       ansible.builtin.set_fact:
-        qflipper_releases: "{{ lookup('file', temp_release.path) | from_json  }}"
+        qflipper_releases: "{{ qflipper_zero_release_data.content | from_json  }}"
 
     - ansible.builtin.set_fact:
         version_query: "channels[?id == '{{ flipper_zero_qFlipper_release }}'].versions[0]"
