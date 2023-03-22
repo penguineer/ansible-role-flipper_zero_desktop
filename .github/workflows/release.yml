@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: "Check-out"
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: "Generate release changelog"
         id: generate-release-changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
